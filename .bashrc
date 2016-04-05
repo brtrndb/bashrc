@@ -129,14 +129,26 @@ alias cdd='cd -';
 alias ..='cd ..';
 
 alias rm='rm -vrfi --preserve-root';
-
 alias mv='mv -vi';
 alias cp='cp -vip';
+
 alias mkdir='mkdir -vp';
 alias chmod='chmod -v';
 alias grep='grep -n --color=auto';
 alias du='du -h';
 alias diff='diff --suppress-common-lines';
+
+alias make='clear && make';
+alias m='make';
+
+alias x='exit';
+
+# Git
+alias gpull='git pull';
+alias gadd='git add';
+alias gpush='git push';
+alias gstat='git status';
+alias gdiff='git diff';
 
 # Typos.
 alias sl='ls';

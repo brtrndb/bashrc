@@ -120,6 +120,17 @@ fi
 # Custom part.
 #
 
+# Colors.
+RST="\[\033[0m\]"	# reset
+BLK="\[\033[30m\]"	# black
+RED='\[\033[31m\]'	# red
+GRN="\[\033[32m\]"	# green
+YEL="\[\033[33m\]"	# yellow
+BLE="\[\033[34m\]"	# blue
+MAG="\[\033[35m\]"	# magenta
+CYN="\[\033[36m\]"	# cyan
+WHT="\[\033[37m\]"	# white
+
 # Aliases.
 alias ls='ls -lhF --color=auto';
 alias ld='ls -lhFX --group-directories-first --color=auto';
@@ -143,7 +154,7 @@ alias m='make';
 
 alias x='exit';
 
-# Git
+# Git.
 alias gpull='git pull';
 alias gadd='git add';
 alias gpush='git push';
@@ -164,6 +175,34 @@ alias maek='make';
 alias mkir='mkdir';
 alias diif='diff';
 
-# Variables
+# Variables.
 export VISUAL="emacs -nw"
 export PAGER="less"
+
+# Prompt.
+export PROMPT_COMMAND=my_prompt;
+
+my_prompt(){
+    local EXIT="$?"
+    PS1="${debian_chroot:+($debian_chroot)|}\A$MAG|"
+
+    if [ $EXIT = 0 ];
+    then
+	PS1+="${CYN}\u${BLE}@${CYN}\H${RST}"
+    else
+	PS1+="${RED}\u${BLE}@${RED}\H${RST}"
+    fi
+
+    local DIR=${PWD/$HOME/\~}
+    
+    if [[ $COLUMNS/3 -le ${#DIR} ]];
+    then
+	DIR="..."${DIR:${#DIR}-$COLUMNS/3:${#DIR}}
+    fi
+    
+    PS1+="$MAG:$YEL$DIR";
+
+    local BRANCH=`git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\ [\1]/"`
+
+    PS1+="$WHT$BRANCH$RST\$ > ";    
+}

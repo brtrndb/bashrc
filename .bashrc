@@ -163,3 +163,7 @@ alias cd..='cd ..';
 alias maek='make';
 alias mkir='mkdir';
 alias diif='diff';
+
+# Variables
+export VISUAL="emacs -nw"
+export PAGER="less"

@@ -115,3 +115,35 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+#
+# Custom part.
+#
+
+# Aliases.
+alias ls='ls -lhF --color=auto';
+alias ld='ls -lhFX --group-directories-first --color=auto';
+alias la='ls -a';
+
+alias cdd='cd -';
+alias ..='cd ..';
+
+alias rm='rm -vrfi --preserve-root';
+
+alias mv='mv -vi';
+alias cp='cp -vip';
+alias mkdir='mkdir -vp';
+alias chmod='chmod -v';
+alias grep='grep -n --color=auto';
+alias du='du -h';
+alias diff='diff --suppress-common-lines';
+
+# Typos.
+alias sl='ls';
+alias l='ls';
+alias s='ls';
+
+alias dc='cd';
+alias c='cd';
+alias d='cd';
+alias cd..='cd ..';

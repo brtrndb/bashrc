@@ -159,3 +159,7 @@ alias dc='cd';
 alias c='cd';
 alias d='cd';
 alias cd..='cd ..';
+
+alias maek='make';
+alias mkir='mkdir';
+alias diif='diff';

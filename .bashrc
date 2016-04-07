@@ -140,6 +140,7 @@ alias cdd='cd -';
 alias ..='cd ..';
 
 alias rm='rm -vrfi --preserve-root';
+alias rr='find . -name "*~" | xargs rm -vrf' ;
 alias mv='mv -vi';
 alias cp='cp -vip';
 

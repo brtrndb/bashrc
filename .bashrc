@@ -203,7 +203,19 @@ my_prompt(){
 
     PS1+="$MAG:$YEL$DIR";
 
-    local BRANCH=`git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\ [\1]/"`
+    local BRANCH=`git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/"`
+    local COMMIT=`git cherry -v origin/"$BRANCH" 2> /dev/null | wc -l`
+    local GIT=""
 
-    PS1+="$WHT$BRANCH$RST\$ > ";
+    if [ -z "$BRANCH" ];
+    then
+	GIT=""
+    elif [[ 0 != $COMMIT ]];
+    then
+	GIT=" $MAG[$RST$BRANCH$MAG|$GRN$COMMIT$MAG]$RST"
+    else
+	GIT=" $MAG[$RST$BRANCH$MAG]$RST"
+    fi
+
+    PS1+="$GIT$RST\$ > ";
 }

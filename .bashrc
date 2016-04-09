@@ -195,15 +195,15 @@ my_prompt(){
     fi
 
     local DIR=${PWD/$HOME/\~}
-    
+
     if [[ $COLUMNS/3 -le ${#DIR} ]];
     then
 	DIR="..."${DIR:${#DIR}-$COLUMNS/3:${#DIR}}
     fi
-    
+
     PS1+="$MAG:$YEL$DIR";
 
     local BRANCH=`git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\ [\1]/"`
 
-    PS1+="$WHT$BRANCH$RST\$ > ";    
+    PS1+="$WHT$BRANCH$RST\$ > ";
 }

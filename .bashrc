@@ -161,6 +161,8 @@ alias gadd='git add';
 alias gpush='git push';
 alias gstat='git status';
 alias gdiff='git diff';
+alias glog='git log';
+alias gl='git log --oneline';
 
 # Typos.
 alias sl='ls';

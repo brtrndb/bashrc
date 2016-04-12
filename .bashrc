@@ -153,6 +153,9 @@ alias diff='diff --suppress-common-lines';
 alias make='clear && make';
 alias m='make';
 
+alias emacs='emacs -nw';
+alias e='emacs';
+
 alias x='exit';
 
 # Git.

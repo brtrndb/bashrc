@@ -120,17 +120,6 @@ fi
 # Custom part.
 #
 
-# Colors.
-RST="\[\033[0m\]"	# reset
-BLK="\[\033[30m\]"	# black
-RED='\[\033[31m\]'	# red
-GRN="\[\033[32m\]"	# green
-YEL="\[\033[33m\]"	# yellow
-BLE="\[\033[34m\]"	# blue
-MAG="\[\033[35m\]"	# magenta
-CYN="\[\033[36m\]"	# cyan
-WHT="\[\033[37m\]"	# white
-
 # Aliases.
 alias ls='ls -lhF --color=auto';
 alias ld='ls -lhFX --group-directories-first --color=auto';
@@ -190,6 +179,22 @@ export PROMPT_COMMAND=my_prompt;
 
 my_prompt(){
     local EXIT="$?"
+
+    # Colors.
+    local RST="\[\033[0m\]"	# Reset color
+    local BLK="\[\033[30m\]"	# Black
+    local RED='\[\033[31m\]'	# Red
+    local GRN="\[\033[32m\]"	# Green
+    local YEL="\[\033[33m\]"	# Yellow
+    local BLE="\[\033[34m\]"	# Blue
+    local MAG="\[\033[35m\]"	# Magenta
+    local CYN="\[\033[36m\]"	# Cyan
+    local WHT="\[\033[37m\]"	# White
+
+    # Font.
+    local BLD="\[\033[1m\]"	# Bold.
+    local DEF="\[\033[0m\]"	# Normal.
+
     PS1="${debian_chroot:+($debian_chroot)|}\A$MAG|"
 
     if [ $EXIT = 0 ];
@@ -212,11 +217,11 @@ my_prompt(){
     local STATUS=`git status --porcelain 2> /dev/null | wc -l`
     local COMMIT=`git cherry -v origin/"$BRANCH" 2> /dev/null | wc -l`
     local GIT=""
-    local COLO=""
+    local BRANCH_COLOR=""
 
     if [[ 0 != $STATUS ]];
     then
-	COLO="$RED"
+	BRANCH_COLOR="$RED"
     fi
 
     if [ -z "$BRANCH" ];
@@ -224,9 +229,9 @@ my_prompt(){
 	GIT=""
     elif [[ 0 != $COMMIT ]];
     then
-	GIT=" $MAG[$RST$COLO$BRANCH$MAG|$GRN$COMMIT$MAG]$RST"
+	GIT=" $MAG[$RST$BRANCH_COLOR$BRANCH$MAG|$GRN$COMMIT$MAG]$RST"
     else
-	GIT=" $MAG[$RST$COLO$BRANCH$MAG]$RST"
+	GIT=" $MAG[$RST$BRANCH_COLOR$BRANCH$MAG]$RST"
     fi
 
     PS1+="$GIT$RST\$ > ";

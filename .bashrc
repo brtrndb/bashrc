@@ -178,61 +178,64 @@ export PAGER="less"
 export PROMPT_COMMAND=my_prompt;
 
 my_prompt(){
-    local EXIT="$?"
+    local EXIT_CODE="$?"
 
     # Colors.
-    local RST="\[\033[0m\]"	# Reset color
-    local BLK="\[\033[30m\]"	# Black
-    local RED='\[\033[31m\]'	# Red
-    local GRN="\[\033[32m\]"	# Green
-    local YEL="\[\033[33m\]"	# Yellow
-    local BLE="\[\033[34m\]"	# Blue
-    local MAG="\[\033[35m\]"	# Magenta
-    local CYN="\[\033[36m\]"	# Cyan
-    local WHT="\[\033[37m\]"	# White
+    local RESET="\[\033[0m\]"		# Reset color
+    local BLACK="\[\033[30m\]"		# Black
+    local RED='\[\033[31m\]'		# Red
+    local GREEN="\[\033[32m\]"		# Green
+    local YELLOW="\[\033[33m\]"		# Yellow
+    local BLUE="\[\033[34m\]"		# Blue
+    local MAGENTA="\[\033[35m\]"	# Magenta
+    local CYAN="\[\033[36m\]"		# Cyan
+    local WHITE="\[\033[37m\]"		# White
 
     # Font.
-    local BLD="\[\033[1m\]"	# Bold.
-    local DEF="\[\033[0m\]"	# Normal.
+    local BOLD="\[\033[1m\]"		# Bold.
+    local DEFAULT="\[\033[0m\]"		# Normal.
 
-    PS1="${debian_chroot:+($debian_chroot)|}\A$MAG|"
-
-    if [ $EXIT = 0 ];
+    local COLOR=""
+    if [ $EXIT_CODE = 0 ];
     then
-	PS1+="${CYN}\u${BLE}@${CYN}\H${RST}"
+	COLOR="$CYAN";
     else
-	PS1+="${RED}\u${BLE}@${RED}\H${RST}"
+	COLOR="$RED";
     fi
+
+    local CHROOT="${debian_chroot:+($debian_chroot)|}";
+    local TIME="\A$MAGENTA|$RESET";
+    local USER="${COLOR}\u${BLUE}@${COLOR}\H${RESET}";
 
     local DIR=${PWD/$HOME/\~}
-
-    if [[ $COLUMNS/3 -le ${#DIR} ]];
+    if [[ $COLUMNS/4 -le ${#DIR} ]];
     then
-	DIR="..."${DIR:${#DIR}-$COLUMNS/3:${#DIR}}
+	DIR="..."${DIR:${#DIR}-$COLUMNS/4:${#DIR}}
     fi
+    DIR="$MAGENTA:$YELLOW$DIR$RESET";
 
-    PS1+="$MAG:$YEL$DIR";
-
-    local BRANCH=`git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/"`
     local STATUS=`git status --porcelain 2> /dev/null | wc -l`
-    local COMMIT=`git cherry -v origin/"$BRANCH" 2> /dev/null | wc -l`
-    local GIT=""
-    local BRANCH_COLOR=""
-
     if [[ 0 != $STATUS ]];
     then
-	BRANCH_COLOR="$RED"
+	COLOR="$RED"
+    else
+	COLOR="$RESET"
     fi
 
+    local GIT=""
+    local BRANCH=`git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/"`
+    local COMMIT=`git cherry -v origin/"$BRANCH" 2> /dev/null | wc -l`
     if [ -z "$BRANCH" ];
     then
 	GIT=""
     elif [[ 0 != $COMMIT ]];
     then
-	GIT=" $MAG[$RST$BRANCH_COLOR$BRANCH$MAG|$GRN$COMMIT$MAG]$RST"
+	GIT=" $MAGENTA[$RESET$COLOR$BRANCH$MAGENTA|$GREEN$COMMIT$MAGENTA]$RESET"
     else
-	GIT=" $MAG[$RST$BRANCH_COLOR$BRANCH$MAG]$RST"
+	GIT=" $MAGENTA[$RESET$COLOR$BRANCH$MAGENTA]$RESET"
     fi
 
-    PS1+="$GIT$RST\$ > ";
+    local SU="\$ > ";
+
+    PS1="$CHROOT$TIME$USER$DIR$GIT$SU";
 }

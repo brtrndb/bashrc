@@ -8,9 +8,9 @@ git clone https://github.com/brtrndb/bashrc.git
 ```
 Then run the `install.sh` script.
 ```
-install.sh
+install.sh -i
 ```
-The `-u` option is to only update the files in `.bashrc.d`.
+The `-i` option is to only update the `.bashrc` file. Without, it will only cpy the files into `.bashrc.d`.
 
 ### Aliases
 - Aliases to correct typos in commands. For example `sl` instead of `ls`.

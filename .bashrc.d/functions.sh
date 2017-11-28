@@ -24,6 +24,6 @@ need_coffee () {
     cat /dev/urandom | hexdump -C | grep --color=auto "ca fe";
 }
 
-history_stats () {
+hs () {
     cut -f1 -d" " $HOME/.bash_history | sort | uniq -c | sort -nr | head -n 30;
 }

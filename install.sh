@@ -22,9 +22,7 @@ update_current () {
     echo "Updating current $BASHRC.";
     echo "" >> $HOME/$BASHRC;
     echo "# Custom part." >> $HOME/$BASHRC;
-    echo ". $BASHRC.d/aliases" >> $HOME/$BASHRC;
-    echo ". $BASHRC.d/env" >> $HOME/$BASHRC;
-    echo ". $BASHRC.d/prompt" >> $HOME/$BASHRC;
+    echo ". $BASHRC.d/init.sh" >> $HOME/$BASHRC;
 }
 
 finish () {
@@ -32,9 +30,9 @@ finish () {
 }
 
 run () {
-    save_current;
     copy_files;
     if [ "$1" = "-i" ]; then
+	save_current;
 	update_current;
     fi
     finish;

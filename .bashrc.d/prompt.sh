@@ -1,23 +1,7 @@
 # Prompt.
-export PROMPT_COMMAND=my_prompt;
 
 my_prompt(){
     local EXIT_CODE="$?"
-
-    # Colors.
-    local RESET="\[\033[0m\]"		# Reset color
-    local BLACK="\[\033[30m\]"		# Black
-    local RED='\[\033[31m\]'		# Red
-    local GREEN="\[\033[32m\]"		# Green
-    local YELLOW="\[\033[33m\]"		# Yellow
-    local BLUE="\[\033[34m\]"		# Blue
-    local MAGENTA="\[\033[35m\]"	# Magenta
-    local CYAN="\[\033[36m\]"		# Cyan
-    local WHITE="\[\033[37m\]"		# White
-
-    # Font.
-    local BOLD="\[\033[1m\]"		# Bold.
-    local DEFAULT="\[\033[0m\]"		# Normal.
 
     local COLOR=""
     if [ $EXIT_CODE = 0 ];
@@ -63,3 +47,6 @@ my_prompt(){
 
     PS1="$CHROOT$TIME$USER$DIR$GIT$SU";
 }
+
+# Export prompt.
+export PROMPT_COMMAND=my_prompt;

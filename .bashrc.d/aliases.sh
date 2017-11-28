@@ -26,17 +26,18 @@ alias e='emacs';
 
 alias h='htop'
 
+alias less='most';
+
+alias du="du -h";
+alias df="df -h";
+
 alias x='exit';
 alias q='exit';
 
-# Git.
-alias gpull='git pull';
-alias gadd='git add';
-alias gpush='git push';
-alias gstat='git status -sb';
-alias gdiff='git diff --ignore-space-at-eol';
-alias glog='git log --graph --abbrev-commit';
-alias gl='git log --graph --abbrev-commit --oneline';
+alias aa="source ~/.bashrc";
+
+# Apt.
+alias apt-up="sudo apt-get update && apt-get upgrade";
 
 # Typos.
 alias sl='ls';
@@ -52,3 +53,20 @@ alias maek='make';
 alias mkir='mkdir';
 alias diif='diff';
 alias exiit='exit';
+
+# Git aliases.
+alias g="git";
+alias gpull='git pull';
+alias gadd='git add';
+alias gpush='git push';
+alias gstat='git status -sb';
+alias gdiff='git diff --ignore-space-at-eol';
+alias glog='git log --graph --abbrev-commit';
+
+alias clone="git clone";
+alias add="git add";
+alias commit="git commit -m";
+alias push="git push";
+alias pull="git pull";
+
+alias gl='git log --graph --abbrev-commit --oneline';

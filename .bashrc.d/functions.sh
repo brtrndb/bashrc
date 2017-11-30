@@ -25,5 +25,14 @@ need_coffee () {
 }
 
 hs () {
-    cut -f1 -d" " $HOME/.bash_history | sort | uniq -c | sort -nr | head -n 30;
+    H=$HOME/.bash_history;
+    if [ -f "$H" ]; then
+	cut -f1 -d" " $H | sort | uniq -c | sort -nr | head -n 30;
+    else
+	history | sed -e "s/^[[:space:]]*[0-9]*[[:space:]]*//" | cut -f1 -d" " | sort | uniq -c | sort -nr | head -n 30;
+    fi
+}
+
+hc () {
+    \rm -f $HOME/.bash_history && clear && history -c;
 }

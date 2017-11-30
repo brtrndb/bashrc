@@ -8,8 +8,8 @@ shopt -s histreedit;
 
 HISTSIZE=5000;
 HISTFILESIZE=10000
-HISTIGNORE="&:ls:la:cd:fg:clear:exit";
-HISTCONTROL="ignoredups";
+HISTIGNORE="&:ls:la:l:s:cd:fg:clear:exit:m:q:x";
+HISTCONTROL="ignoreboth";
 
 # Variables.
 export VISUAL="emacs -nw"

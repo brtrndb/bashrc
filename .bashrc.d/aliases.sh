@@ -37,7 +37,7 @@ alias q='exit';
 alias aa="source ~/.bashrc";
 
 # Apt.
-alias apt-up="sudo apt-get update && apt-get upgrade";
+alias apt-up="sudo apt-get update && sudo apt-get upgrade";
 
 # Typos.
 alias sl='ls';
@@ -70,3 +70,4 @@ alias push="git push";
 alias pull="git pull";
 
 alias gl='git log --graph --abbrev-commit --oneline';
+alias gs='git status -sb';

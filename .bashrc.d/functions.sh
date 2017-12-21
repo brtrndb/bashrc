@@ -36,3 +36,7 @@ hs () {
 hc () {
     \rm -f $HOME/.bash_history && clear && history -c;
 }
+
+gpcp () {
+    git pull && git commit -m "$1" && git push;
+}

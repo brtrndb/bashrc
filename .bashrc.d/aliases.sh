@@ -18,7 +18,6 @@ alias grep='grep -n --color=auto';
 alias du='du -h';
 alias diff='diff --suppress-common-lines';
 
-alias make='clear && make';
 alias m='make';
 
 alias emacs='emacs -nw';
@@ -50,6 +49,7 @@ alias d='cd';
 alias cd..='cd ..';
 
 alias maek='make';
+alias male='make';
 alias mkir='mkdir';
 alias diif='diff';
 alias exiit='exit';

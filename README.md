@@ -6,11 +6,7 @@ Clone the repository.
 ```
 git clone https://github.com/brtrndb/bashrc.git
 ```
-Then run the `install.sh` script.
-```
-install.sh -i
-```
-The `-i` option is to only update the `.bashrc` file. Without, it will only copy the files into `.bashrc.d`.
+Then run `install.sh -h` to get list of available actions.
 
 ### Aliases
 - Aliases to correct typos in commands. For example `sl` instead of `ls`.

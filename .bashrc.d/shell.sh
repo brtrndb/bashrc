@@ -10,10 +10,14 @@ HISTSIZE=5000;
 HISTFILESIZE=10000
 HISTIGNORE="&:ls:la:l:s:cd:fg:clear:exit:m:q:x";
 HISTCONTROL="ignoreboth";
+HISTTIMEFORMAT="%F %T "
 
 # Variables.
 export VISUAL="emacs -nw"
 export PAGER="most"
+if [ -d "$HOME/.bashrc.d/scripts" ]; then
+    export PATH="$PATH:$HOME/.bashrc.d/scripts";
+fi
 
 # Colors.
 RESET="\[\033[0m\]"		# Reset color

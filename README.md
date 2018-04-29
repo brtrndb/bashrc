@@ -11,9 +11,7 @@ Then run `install.sh -h` to get list of available actions.
 ### Aliases
 - Aliases to correct typos in commands. For example `sl` instead of `ls`.
 - Aliases for lazy people, like `e` instead of `emacs`.
-
-### Git
-Some aliases for git.
+- Some aliases for git.
 
 ### Prompt
 - Display classical informations like time, user and host.
@@ -21,4 +19,9 @@ Some aliases for git.
 - Display the current git branch, changes and number of commits unpushed.
 
 ### Functions.
-Some functions.
+- Some functions to manage commands history.
+
+### Shell
+#### Environment
+- Colors.
+- History control.

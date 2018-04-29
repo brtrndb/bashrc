@@ -32,15 +32,27 @@ my_prompt(){
 
     local GIT=""
     local BRANCH=`git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/"`
-    local COMMIT=`git cherry -v origin/"$BRANCH" 2> /dev/null | wc -l`
-    if [ -z "$BRANCH" ];
+    local COMMIT_LOCAL=`git cherry -v origin/"$BRANCH" 2> /dev/null | wc -l`
+    local COMMIT_REMOTE=`git log --oneline HEAD..origin/"$BRANCH" 2> /dev/null | wc -l`
+    if [ -z "$BRANCH" ]
     then
-	GIT=""
-    elif [[ 0 != $COMMIT ]];
-    then
-	GIT=" $MAGENTA[$RESET$COLOR$BRANCH$MAGENTA|$GREEN$COMMIT↑$MAGENTA]$RESET"
+	GIT="";
     else
-	GIT=" $MAGENTA[$RESET$COLOR$BRANCH$MAGENTA]$RESET"
+	GIT=" $MAGENTA[$RESET$COLOR$BRANCH$MAGENTA";
+	local COMMIT="";
+	if [[ 0 != $COMMIT_LOCAL ]];
+	then
+	    COMMIT="$GREEN$COMMIT_LOCAL↑";
+	fi
+	if [[ 0 != $COMMIT_REMOTE ]];
+	then
+	    COMMIT="$COMMIT$YELLOW$COMMIT_REMOTE↓";
+	fi
+	if [ -n "$COMMIT" ]
+	then
+	    GIT="$GIT|"
+	fi
+	GIT="$GIT$COMMIT$MAGENTA]$RESET";
     fi
 
     local SU="\$ > ";

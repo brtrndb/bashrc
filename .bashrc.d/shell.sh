@@ -8,7 +8,7 @@ shopt -s histreedit;
 
 HISTSIZE=5000;
 HISTFILESIZE=10000
-HISTIGNORE="&:ls:la:l:s:cd:fg:clear:exit:m:q:x";
+HISTIGNORE="&:ls:la:ll:l:s:sl:cd:c:d:fg:clear:exit:exiit:m:q:x:gl:gs";
 HISTCONTROL="ignoreboth";
 HISTTIMEFORMAT="%F %T "
 

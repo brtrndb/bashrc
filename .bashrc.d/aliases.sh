@@ -56,18 +56,6 @@ alias exiit='exit';
 
 # Git aliases.
 alias g="git";
-alias gpull='git pull';
-alias gadd='git add';
-alias gpush='git push';
-alias gstat='git status -sb';
-alias gdiff='git diff --ignore-space-at-eol';
-alias glog='git log --graph --abbrev-commit';
-
-alias clone="git clone";
-alias add="git add";
-alias commit="git commit -m";
-alias push="git push";
-alias pull="git pull";
-
+alias gd='git diff --ignore-space-at-eol';
 alias gl='git log --graph --abbrev-commit --oneline';
 alias gs='git status -sb';

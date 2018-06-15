@@ -10,11 +10,12 @@ HISTSIZE=5000;
 HISTFILESIZE=10000
 HISTIGNORE="&:ls:la:ll:l:s:sl:cd:c:d:fg:clear:exit:exiit:m:q:x:gl:gs";
 HISTCONTROL="ignoreboth";
-HISTTIMEFORMAT="%F %T "
+HISTTIMEFORMAT="%F %T ";
 
 # Variables.
-export VISUAL="emacs -nw"
-export PAGER="most"
+export VISUAL="emacs -nw";
+export PAGER="most";
+
 if [ -d "$HOME/.bashrc.d/scripts" ]; then
     export PATH="$PATH:$HOME/.bashrc.d/scripts";
 fi

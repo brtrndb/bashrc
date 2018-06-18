@@ -41,6 +41,10 @@ A new fresh install will copy the `.bashrc.d` folder into your home and add the 
 
 * Some functions to manage commands history.
 
+### Scripts
+
+The `scripts` folder constains some useful (or not) scripts. They are accessible from the `PATH` variable.
+
 ### Shell environment
 
 * Colors.

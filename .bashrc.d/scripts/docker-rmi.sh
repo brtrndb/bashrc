@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Bertrand B.
 
 IMAGES=`docker images -q`;

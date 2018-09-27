@@ -20,10 +20,6 @@ extract () {
     fi
 }
 
-need_coffee () {
-    cat /dev/urandom | hexdump -C | grep --color=auto "ca fe";
-}
-
 hs () {
     H=$HOME/.bash_history;
     if [ -f "$H" ]; then

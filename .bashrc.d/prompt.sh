@@ -15,7 +15,7 @@ my_prompt(){
     local TIME="\A$MAGENTA|$RESET";
     local USER="${COLOR}\u${BLUE}@${COLOR}\H${RESET}";
 
-    local DIR=${PWD/$HOME/\~}
+    local DIR=${PWD/$HOME/\~};
     if [[ $COLUMNS/4 -le ${#DIR} ]];
     then
 	DIR="..."${DIR:${#DIR}-$COLUMNS/4:${#DIR}}

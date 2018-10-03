@@ -4,11 +4,11 @@ setup_pwd() {
     local DIR="";
     if [[ $1 != 0 ]];
     then
-	DIR=${PWD/$HOME/\~};
+	DIR=${YELLOW}${PWD/$HOME/\~};
     else
 	local GIT_ROOT=`git rev-parse --show-toplevel 2> /dev/null`;
 	local GIT_ROOT_NAME=`basename $GIT_ROOT`;
-	DIR=".../"${PWD/$GIT_ROOT/$GIT_ROOT_NAME};
+	DIR=${YELLOW}".../"${PWD/$GIT_ROOT/$GIT_ROOT_NAME};
     fi
 
     if [[ $COLUMNS/4 -le ${#DIR} ]];
@@ -72,11 +72,11 @@ my_prompt() {
 
     local CHROOT="${debian_chroot:+($debian_chroot)|}";
     local TIME="\A$MAGENTA|$RESET";
-    local USER="${COLOR}\u${BLUE}@${COLOR}\H${RESET}";
+    local USER="${COLOR}\u${MAGENTA}@${COLOR}\H${RESET}";
     IS_GIT=`git status 2> /dev/null`;
     local IS_GIT_CODE="$?";
 
-    local DIR="${MAGENTA}:${YELLOW}`setup_pwd $IS_GIT_CODE`${RESET}";
+    local DIR="${MAGENTA}:`setup_pwd $IS_GIT_CODE`${RESET}";
     local GIT=`setup_git_branch $IS_GIT_CODE`;
     local SU="\$ > ";
 

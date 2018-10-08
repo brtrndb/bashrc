@@ -6,13 +6,13 @@ My `.bashrc` files. Simple & elegant.
 
 First, clone the repository.
 
-```
+```sh
 $ git clone https://github.com/brtrndb/bashrc.git
 ```
 
 ## Usage
 
-```
+```sh
 $ ./install.sh -h
 Usage:
 -n, --new:    New install.

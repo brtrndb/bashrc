@@ -4,11 +4,11 @@ setup_pwd() {
     local DIR="";
     if [[ $1 != 0 ]];
     then
-	DIR=${YELLOW}${PWD/$HOME/\~};
+	DIR=${PWD/$HOME/\~};
     else
 	local GIT_ROOT=`git rev-parse --show-toplevel 2> /dev/null`;
 	local GIT_ROOT_NAME=`basename $GIT_ROOT`;
-	DIR=${YELLOW}".../"${PWD/$GIT_ROOT/$GIT_ROOT_NAME};
+	DIR=".../"${PWD/$GIT_ROOT/$GIT_ROOT_NAME};
     fi
 
     if [[ $COLUMNS/4 -le ${#DIR} ]];
@@ -16,7 +16,7 @@ setup_pwd() {
 	DIR="..."${DIR:${#DIR}-$COLUMNS/4:${#DIR}}
     fi
 
-    echo -n $DIR;
+    echo -n "$DIR";
 }
 
 setup_git_branch() {
@@ -76,11 +76,13 @@ my_prompt() {
     IS_GIT=`git status 2> /dev/null`;
     local IS_GIT_CODE="$?";
 
-    local DIR="${MAGENTA}:`setup_pwd $IS_GIT_CODE`${RESET}";
+    NEW_PWD=`setup_pwd $IS_GIT_CODE`;
+    local TITLEBAR='\033]0;${NEW_PWD}\007';
+    local DIR="${MAGENTA}:${YELLOW}${NEW_PWD}${RESET}";
     local GIT=`setup_git_branch $IS_GIT_CODE`;
     local SU="\$ > ";
 
-    PS1="$CHROOT$TIME$USER$DIR$GIT$SU";
+    PS1="$TITLEBAR$CHROOT$TIME$USER$DIR$GIT$SU";
 }
 
 # Export prompt.

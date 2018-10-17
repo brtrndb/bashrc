@@ -1,9 +1,18 @@
-#!/bin/bash
+#!/bin/sh
+# Bertrand B.
 
 BASHRC=".bashrc";
 BASHRC_D=".bashrc.d";
 HOME_BASHRC=$HOME/$BASHRC;
 HOME_BASHRC_D=$HOME/$BASHRC_D;
+
+usage () {
+  echo "Usage: ./$(basename "$0") { -n | -c | -u | -h }";
+  echo "-n, --new:    New install."
+  echo "-c, --clean:  Rollback to previous install."
+  echo "-u, --update: Update files in $HOME_BASHRC_D.";
+  echo "-h, --help:   Display usage."
+}
 
 copy_files () {
     echo "Copying files from $BASHRC_D into $HOME_BASHRC_D.";
@@ -43,14 +52,6 @@ restore_previous_bashrc () {
 
 finalize () {
     echo "You need to reload your current terminal."
-}
-
-usage () {
-    echo "Usage:";
-    echo "-n, --new:    New install."
-    echo "-c, --clean:  Rollback to previous install."
-    echo "-u, --update: Update files in $HOME_BASHRC_D.";
-    echo "-h, --help:   Display usage."
 }
 
 run () {

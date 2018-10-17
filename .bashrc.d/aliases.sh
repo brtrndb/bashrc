@@ -1,4 +1,5 @@
 # Aliases.
+
 alias ls='ls -lhF --group-directories-first --color=auto';
 alias lld='ls -X';
 alias la='ls -a';

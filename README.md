@@ -14,7 +14,7 @@ $ git clone https://github.com/brtrndb/bashrc.git
 
 ```sh
 $ ./install.sh -h
-Usage:
+Usage: ./install.sh  { -n | -c | -u | -h }
 -n, --new:    New install.
 -c, --clean:  Rollback to previous install.
 -u, --update: Update files in /home/bertrand/.bashrc.d.

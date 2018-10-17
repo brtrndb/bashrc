@@ -1,4 +1,4 @@
-# Load files.
+# Init.
 
 BASH_FOLDER="$HOME/.bashrc.d";
 

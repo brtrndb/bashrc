@@ -1,4 +1,6 @@
-# Shell options.
+# Shell.
+
+# Options.
 shopt -s cdspell;
 shopt -s checkwinsize;
 

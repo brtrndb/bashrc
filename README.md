@@ -27,19 +27,19 @@ A new fresh install will copy the `.bashrc.d` folder into your home and add the 
 
 ### Aliases
 
-* Aliases to correct typos in commands. For example `sl` instead of `ls`.
-* Aliases for lazy people, like `c` for `cd`, or `e` instead of `emacs`.
-* Some aliases for git.
+- Aliases to correct typos in commands. For example `sl` instead of `ls`.
+- Aliases for lazy people, like `c` for `cd`, or `e` instead of `emacs`.
+- Some aliases for git.
 
 ### Prompt
 
-* Display classical informations like time, user and host.
-* Display the current directory shortened if it is too long in the terminal.
-* Display the current git branch, changes, commits unpushed, and remote commits.
+- Display classical informations like time, user and host.
+- Display the current directory shortened if it is too long in the terminal.
+- Display the current git branch, changes, commits unpushed, and remote commits.
 
 ### Functions.
 
-* Some functions to manage commands history.
+- Some functions to manage commands history.
 
 ### Scripts
 
@@ -47,8 +47,8 @@ The `scripts` folder constains some useful (or not) scripts. They are accessible
 
 ### Shell environment
 
-* Colors.
-* History control.
+- Colors.
+- History control.
 
 ## Notes
 

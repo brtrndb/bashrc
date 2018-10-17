@@ -54,4 +54,4 @@ The `scripts` folder constains some useful (or not) scripts. They are accessible
 
 ## License
 
-See [LICENSE.md](./LICENSE.md)
+See [LICENSE.md](./LICENSE.md).

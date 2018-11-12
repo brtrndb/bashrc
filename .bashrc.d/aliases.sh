@@ -24,6 +24,7 @@ alias m='make';
 alias emacs='emacs -nw';
 alias e='emacs';
 
+alias htop='echo -e "\033]0;htop\007" && htop'
 alias h='htop'
 
 alias less='most';

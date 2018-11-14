@@ -8,12 +8,23 @@ setup_pwd() {
     else
 	local GIT_ROOT=`git rev-parse --show-toplevel 2> /dev/null`;
 	local GIT_ROOT_NAME=`basename $GIT_ROOT`;
-	DIR=".../"${PWD/$GIT_ROOT/$GIT_ROOT_NAME};
+	DIR="/${PWD/$GIT_ROOT/$GIT_ROOT_NAME}";
     fi
 
     if [[ $COLUMNS/4 -le ${#DIR} ]];
     then
 	DIR="..."${DIR:${#DIR}-$COLUMNS/4:${#DIR}}
+    fi
+
+    echo -n "$DIR";
+}
+
+color_pwd() {
+    DIR="";
+    if [[ $1 != 0 ]]; then
+	DIR="${YELLOW}$2"
+    else
+	DIR="${BLUE}git${MAGENTA}:${YELLOW}$2";
     fi
 
     echo -n "$DIR";
@@ -77,8 +88,9 @@ my_prompt() {
     local IS_GIT_CODE="$?";
 
     NEW_PWD=`setup_pwd $IS_GIT_CODE`;
+    COLOR_PWD=`color_pwd $IS_GIT_CODE $NEW_PWD`;
     local TITLEBAR='\033]0;${NEW_PWD}\007';
-    local DIR="${MAGENTA}:${YELLOW}${NEW_PWD}${RESET}";
+    local DIR="${MAGENTA}:${COLOR_PWD}${RESET}";
     local GIT=`setup_git_branch $IS_GIT_CODE`;
     local SU="\$ > ";
 

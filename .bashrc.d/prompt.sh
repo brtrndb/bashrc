@@ -27,7 +27,7 @@ color_pwd() {
 	DIR="${BLUE}git${MAGENTA}:${YELLOW}$2";
     fi
 
-    echo -n "$DIR";
+    echo -n $DIR;
 }
 
 setup_git_branch() {
@@ -42,7 +42,7 @@ setup_git_branch() {
     local COMMIT_LOCAL=`git cherry -v origin/"$BRANCH" 2> /dev/null | wc -l`;
     local COMMIT_REMOTE=`git log --oneline HEAD..origin/"$BRANCH" 2> /dev/null | wc -l`;
 
-    if [[ 0 != $STATUS ]];
+    if [[ $STATUS != 0 ]];
     then
 	STATUS_COLOR="${RED}"
     else
@@ -76,13 +76,13 @@ my_prompt() {
     local COLOR=""
     if [ $EXIT_CODE = 0 ];
     then
-	COLOR="$CYAN";
+	COLOR="${CYAN}";
     else
-	COLOR="$RED";
+	COLOR="${RED}";
     fi
 
     local CHROOT="${debian_chroot:+($debian_chroot)|}";
-    local TIME="\A$MAGENTA|$RESET";
+    local TIME="\A${MAGENTA}|${RESET}";
     local USER="${COLOR}\u${MAGENTA}@${COLOR}\H${RESET}";
     IS_GIT=`git status 2> /dev/null`;
     local IS_GIT_CODE="$?";

@@ -37,6 +37,8 @@ alias q='exit';
 
 alias aa="source ~/.bashrc";
 
+alias env="env | sort"
+
 # Apt.
 alias apt-up="sudo apt-get update && sudo apt-get upgrade";
 

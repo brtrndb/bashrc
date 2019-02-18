@@ -21,17 +21,21 @@ my_prompt() {
     local GIT_NB_COMMIT_REMOTE=$(git log --oneline HEAD..origin/"$BRANCH" 2> /dev/null | wc -l);
 
     local GIT_STATUS;
+    local SHOW_STATUS=false;
     if [[ "$GIT_NB_FILES" != "0" ]]; then
+      SHOW_STATUS=true;
       GIT_STATUS="$RED±$GIT_NB_FILES$RESET";
     fi
     if [[ "$GIT_NB_COMMIT_LOCAL" != "0" ]]; then
+      SHOW_STATUS=true;
       GIT_STATUS="$GIT_STATUS$GREEN↑$GIT_NB_COMMIT_LOCAL$RESET";
     fi
     if [[ "$GIT_NB_COMMIT_REMOTE" != "0" ]]; then
+      SHOW_STATUS=true;
       GIT_STATUS="$GIT_STATUS$YELLOW↓$GIT_NB_COMMIT_REMOTE$RESET";
     fi
 
-    GIT_INFOS="${MAGENTA}[$RESET$BOLD$GIT_BRANCH_NAME$DEFAULT$MAGENTA|$GIT_STATUS$MAGENTA]$RESET";
+    GIT_INFOS="${MAGENTA}[$RESET$GIT_BRANCH_NAME$([ "$SHOW_STATUS" = "true" ] && echo "$MAGENTA|$GIT_STATUS" || echo "")$MAGENTA]$RESET";
   fi
 
   if [[ $COLUMNS/4 -le ${#CURRENT_DIR} ]]; then

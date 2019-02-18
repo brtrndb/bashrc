@@ -17,8 +17,8 @@ my_prompt() {
 
     local GIT_NB_FILES=$(git status --porcelain 2> /dev/null | wc -l);
     local GIT_BRANCH_NAME=$(git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/");
-    local GIT_NB_COMMIT_LOCAL=$(git cherry -v origin/"$BRANCH" 2> /dev/null | wc -l);
-    local GIT_NB_COMMIT_REMOTE=$(git log --oneline HEAD..origin/"$BRANCH" 2> /dev/null | wc -l);
+    local GIT_NB_COMMIT_LOCAL=$(git cherry -v origin/"$GIT_BRANCH_NAME" 2> /dev/null | wc -l);
+    local GIT_NB_COMMIT_REMOTE=$(git log --oneline HEAD..origin/"$GIT_BRANCH_NAME" 2> /dev/null | wc -l);
 
     local GIT_STATUS;
     local SHOW_STATUS=false;

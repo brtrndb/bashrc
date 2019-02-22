@@ -2,32 +2,21 @@
 # Bertrand B.
 
 usage () {
-    echo "Usage: $(basename "$0") { -h }"
-    echo "-h, --help: Display usage.";
-}
-
-configure() {
-    while [ "$#" -gt "0" ]; do
-	case "$1" in
-	    -h | --help)
-		usage;
-		exit 0;
-		;;
-	    -* | --*)
-		echo "Unknown option: $1. Ignored."
-		shift 1;
-		;;
-	esac
-    done
+  echo "Usage: $(basename "$0") { -h }";
+  echo "-h, --help: Display usage.";
 }
 
 coffee() {
-    cat /dev/urandom | hexdump -C | grep --color=auto "ca fe";
+  hexdump -C < /dev/urandom | grep --color=auto "ca fe";
 }
 
 run() {
-    configure $*;
-    coffee;
+  if [ $# -ge 1 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    usage;
+    return;
+  fi
+
+  coffee;
 }
 
-run $*;
+run "$*";

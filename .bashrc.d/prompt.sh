@@ -48,7 +48,7 @@ my_prompt() {
   local PS_CHROOT="${debian_chroot:+($debian_chroot)|}";
   local PS_TIME="\\A$MAGENTA|$RESET";
   local PS_USER="$USER_COLOR\\u$MAGENTA@$USER_COLOR\\H$MAGENTA:$RESET";
-  local PS_GIT="$BLUE$([ "$IS_GIT_SUBMODULE" = "1" ] && echo "sub")git$MAGENTA:$RESET";
+  local PS_GIT="$([ "$IS_GIT_REPO" = "0" ] && echo "$BLUE$([ "$IS_GIT_SUBMODULE" = "1" ] && echo "sub")git$MAGENTA:$RESET")";
   local PS_CURRENT_DIR="$YELLOW$CURRENT_DIR$RESET";
   local PS_GIT_BRANCH=$([ "$IS_GIT_REPO" = "0" ] && echo " $GIT_INFOS");
   local PS_SU="\$ > ";

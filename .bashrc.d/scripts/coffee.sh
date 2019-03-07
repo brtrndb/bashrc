@@ -2,8 +2,11 @@
 # Bertrand B.
 
 usage() {
-  echo "Usage: $(basename "$0") { -h }";
-  echo "-h, --help: Display usage.";
+  echo "Because you need coffee ☕."
+  echo "";
+  echo "Usage: $(basename "$0") [OPTIONS]";
+  echo "Options:";
+  echo "  -h, --help: Display usage.";
 }
 
 coffee() {

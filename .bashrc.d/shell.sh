@@ -3,6 +3,7 @@
 # Options.
 shopt -s cdspell;
 shopt -s checkwinsize;
+shopt -s autocd;
 
 # History
 shopt -s histappend;

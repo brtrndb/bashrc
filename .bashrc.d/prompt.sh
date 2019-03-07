@@ -16,16 +16,36 @@ my_prompt() {
 
     CURRENT_DIR="/${PWD/$GIT_ROOT/$(basename "$GIT_ROOT")}";
 
-    local GIT_NB_FILES=$(git status --porcelain 2> /dev/null | wc -l);
-    local GIT_BRANCH_NAME=$(git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/\1/");
+    local GIT_NB_FILES=$(git status --porcelain 2> /dev/null);
+    local GIT_NB_FILES_UNTRACKED=$(echo "$GIT_NB_FILES" | grep -cE '^\ ?\?');
+    local GIT_NB_FILES_MODIFIED=$(echo "$GIT_NB_FILES" | grep -cE '^\ ?M');
+    local GIT_NB_FILES_ADDED=$(echo "$GIT_NB_FILES" | grep -cE '^\ ?A');
+    local GIT_NB_FILES_CONFLICT=$(echo "$GIT_NB_FILES" | grep -cE '^\ ?U');
+    local GIT_BRANCH_NAME=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/');
     local GIT_NB_COMMIT_LOCAL=$(git cherry -v "origin/$GIT_BRANCH_NAME" 2> /dev/null | wc -l);
     local GIT_NB_COMMIT_REMOTE=$(git log --oneline "HEAD..origin/$GIT_BRANCH_NAME" 2> /dev/null | wc -l);
 
     local GIT_STATUS;
     local SHOW_STATUS="0";
-    if [ "$GIT_NB_FILES" != "0" ]; then
+    if [ -z "$GIT_NB_FILES" ]; then
       SHOW_STATUS="1";
-      GIT_STATUS="$RED±$GIT_NB_FILES$RESET";
+      GIT_STATUS="$GIT_STATUS$GREEN✓$RESET";
+    fi
+    if [ "$GIT_NB_FILES_UNTRACKED" != "0" ]; then
+      SHOW_STATUS="1";
+      GIT_STATUS="$GIT_STATUS$RED?$GIT_NB_FILES_UNTRACKED$RESET";
+    fi
+    if [ "$GIT_NB_FILES_MODIFIED" != "0" ]; then
+      SHOW_STATUS="1";
+      GIT_STATUS="$GIT_STATUS$RED±$GIT_NB_FILES_MODIFIED$RESET";
+    fi
+    if [ "$GIT_NB_FILES_ADDED" != "0" ]; then
+      SHOW_STATUS="1";
+      GIT_STATUS="$GIT_STATUS$GREEN☑$GIT_NB_FILES_ADDED$RESET";
+    fi
+    if [ "$GIT_NB_FILES_CONFLICT" != "0" ]; then
+      SHOW_STATUS="1";
+      GIT_STATUS="$GIT_STATUS$RED☒$GIT_NB_FILES_CONFLICT$RESET";
     fi
     if [ "$GIT_NB_COMMIT_LOCAL" != "0" ]; then
       SHOW_STATUS="1";

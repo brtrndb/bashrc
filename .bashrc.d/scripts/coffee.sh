@@ -1,7 +1,7 @@
 #!/bin/sh
 # Bertrand B.
 
-usage () {
+usage() {
   echo "Usage: $(basename "$0") { -h }";
   echo "-h, --help: Display usage.";
 }

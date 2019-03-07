@@ -4,8 +4,7 @@ my_prompt() {
   local LAST_CMD_EXIT_CODE="$?";
   local USER_COLOR=$([ "$LAST_CMD_EXIT_CODE" = "0" ] && echo "$CYAN" || echo "$RED");
 
-  git rev-parse --git-dir > /dev/null 2>&1;
-  local IS_GIT_REPO="$?";
+  local IS_GIT_REPO=$([ ! -z "$(git rev-parse --git-dir 2> /dev/null)" ] && echo "0" || echo "1");
 
   local GIT_INFOS;
   local CURRENT_DIR;
@@ -13,7 +12,7 @@ my_prompt() {
     CURRENT_DIR=${PWD/$HOME/\~};
   else
     local GIT_ROOT=$(git rev-parse --show-toplevel 2> /dev/null);
-    local IS_GIT_SUBMODULE=$([ -z $(git rev-parse --show-superproject-working-tree  2> /dev/null) ] && echo "0" || echo "1");
+    local IS_GIT_SUBMODULE=$([ -z "$(git rev-parse --show-superproject-working-tree  2> /dev/null)" ] && echo "0" || echo "1");
 
     CURRENT_DIR="/${PWD/$GIT_ROOT/$(basename "$GIT_ROOT")}";
 
@@ -48,7 +47,7 @@ my_prompt() {
   local PS_CHROOT="${debian_chroot:+($debian_chroot)|}";
   local PS_TIME="\\A$MAGENTA|$RESET";
   local PS_USER="$USER_COLOR\\u$MAGENTA@$USER_COLOR\\H$MAGENTA:$RESET";
-  local PS_GIT="$([ "$IS_GIT_REPO" = "0" ] && echo "$BLUE$([ "$IS_GIT_SUBMODULE" = "1" ] && echo "sub")git$MAGENTA:$RESET")";
+  local PS_GIT=$([ "$IS_GIT_REPO" = "0" ] && echo "$BLUE$([ "$IS_GIT_SUBMODULE" = "1" ] && echo "sub")git$MAGENTA:$RESET");
   local PS_CURRENT_DIR="$YELLOW$CURRENT_DIR$RESET";
   local PS_GIT_BRANCH=$([ "$IS_GIT_REPO" = "0" ] && echo " $GIT_INFOS");
   local PS_SU="\$ > ";

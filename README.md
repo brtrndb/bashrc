@@ -17,17 +17,17 @@ $ ./install.sh -h
 Usage: ./install.sh  { -n | -c | -u | -h }
 -n, --new:    New install.
 -c, --clean:  Rollback to previous install.
--u, --update: Update files in /home/bertrand/.bashrc.d.
+-u, --update: Update files in /home/$USER/.bashrc.d.
 -h, --help:   Display usage.
 ```
 
-A new fresh install will copy the `.bashrc.d` folder into your home and add the line `. $HOME/.bashrc.d/init.sh` at the end of your current `.bashrc` file.
+A new fresh install will copy `.bashrc.d/` into your home folder and append the line `. $HOME/.bashrc.d/init.sh` at the end of your current `.bashrc`. It will also create a backup just in case.
 
 ## Description
 
 ### Aliases
 
-- Aliases to correct typos in commands. For example `sl` instead of `ls`.
+- Aliases to correct typos in most common commands. For example `sl` instead of `ls`.
 - Aliases for lazy people, like `c` for `cd`, or `e` instead of `emacs`.
 - Some aliases for git.
 

@@ -43,7 +43,12 @@ A new fresh install will copy `.bashrc.d/` into your home folder and append the 
 
 ### Scripts
 
-The `scripts` folder constains some useful (or not) scripts. They are accessible from the `PATH` variable.
+The `scripts/` folder constains some useful (or not) scripts. They are accessible from the `PATH` env variable.
+
+- `coffee.sh`: Because you need coffee.
+- `extract.sh`: Extract archived file with correct command depending on file extension.
+- `history-clean.sh`: Empty your command line history and delete your `.bash_history`.
+- `history-stats.sh`: Show you most used command from `.bash_history`.
 
 ### Shell environment
 

@@ -52,8 +52,8 @@ The `scripts/` folder constains some useful (or not) scripts. They are accessibl
 
 ### Shell environment
 
-- Colors.
-- History control.
+- Set `PAGER` and `VISUAL`.
+- Set up how commands history is managed (ignored commands, size, format).
 
 ## Notes
 

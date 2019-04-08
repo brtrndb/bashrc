@@ -1,0 +1,3 @@
+[submodule ".bashrc.d/yarn-completion"]
+	path = .bashrc.d/yarn-completion
+	url = https://github.com/dsifford/yarn-completion.git

@@ -4,10 +4,10 @@ My `.bashrc` files. Simple & elegant.
 
 ## Installation
 
-First, clone the repository.
+First, clone the repository with its submodules.
 
 ```sh
-$ git clone https://github.com/brtrndb/bashrc.git
+$ git clone --recurse-submodules https://github.com/brtrndb/bashrc.git
 ```
 
 ## Usage
@@ -54,6 +54,10 @@ The `scripts/` folder constains some useful (or not) scripts. They are accessibl
 
 - Set `PAGER` and `VISUAL`.
 - Set up how commands history is managed (ignored commands, size, format).
+
+### Autocomplete
+
+- `yarn`: https://github.com/dsifford/yarn-completion.
 
 ## Notes
 

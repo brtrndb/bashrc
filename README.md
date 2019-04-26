@@ -37,10 +37,6 @@ A new fresh install will copy `.bashrc.d/` into your home folder and append the 
 - Display the current directory shortened if it is too long in the terminal.
 - Display the current git branch, changes, commits unpushed, and remote commits.
 
-### Functions.
-
-- Some functions to manage commands history.
-
 ### Scripts
 
 The `scripts/` folder constains some useful (or not) scripts. They are accessible from the `PATH` env variable.

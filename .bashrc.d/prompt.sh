@@ -20,6 +20,8 @@ my_prompt() {
     local GIT_NB_FILES_UNTRACKED=$(echo "$GIT_NB_FILES" | grep -cE '^\?\?');
     local GIT_NB_FILES_MODIFIED=$(echo "$GIT_NB_FILES" | grep -cE '^(\ |A)?M');
     local GIT_NB_FILES_ADDED=$(echo "$GIT_NB_FILES" | grep -cE '^A');
+    local GIT_NB_FILES_DELETED=$(echo "$GIT_NB_FILES" | grep -cE '^\ ?D');
+    local GIT_NB_FILES_RENAMED=$(echo "$GIT_NB_FILES" | grep -cE '^\ ?R');
     local GIT_NB_FILES_CONFLICT=$(echo "$GIT_NB_FILES" | grep -cE '^\ ?U');
     local GIT_BRANCH_NAME=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/');
     local GIT_NB_COMMIT_LOCAL=$(git cherry -v "origin/$GIT_BRANCH_NAME" 2> /dev/null | wc -l);
@@ -42,6 +44,14 @@ my_prompt() {
     if [ "$GIT_NB_FILES_ADDED" != "0" ]; then
       SHOW_STATUS="1";
       GIT_STATUS="$GIT_STATUS$GREEN☑$GIT_NB_FILES_ADDED$RESET";
+    fi
+    if [ "$GIT_NB_FILES_DELETED" != "0" ]; then
+      SHOW_STATUS="1";
+      GIT_STATUS="$GIT_STATUS$RED☒$GIT_NB_FILES_DELETED$RESET";
+    fi
+    if [ "$GIT_NB_FILES_RENAMED" != "0" ]; then
+      SHOW_STATUS="1";
+      GIT_STATUS="$GIT_STATUS$GREEN⥱$GIT_NB_FILES_RENAMED$RESET";
     fi
     if [ "$GIT_NB_FILES_CONFLICT" != "0" ]; then
       SHOW_STATUS="1";

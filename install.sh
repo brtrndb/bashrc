@@ -21,14 +21,14 @@ copy_files () {
 }
 
 delete_files (){
-  if [ -d "$HOME_BASHRC_D" ]; then
+  if [[ -d "$HOME_BASHRC_D" ]]; then
     echo "Deleting files from $HOME_BASHRC_D.";
     rm -vrf "$HOME_BASHRC_D";
   fi
 }
 
-save_current_bachrc () {
-  if [ -f "$HOME_BASHRC" ]; then
+save_current_bashrc () {
+  if [[ -f "$HOME_BASHRC" ]]; then
     echo "Saving previous $BASHRC.";
     cp -v "$HOME_BASHRC" "$HOME_BASHRC.save_$(date +"%Y%m%d%H%M%S")";
   else
@@ -39,12 +39,12 @@ save_current_bachrc () {
 
 update_current_bashrc () {
   echo "Updating current $BASHRC.";
-  { echo "" ; echo "# Custom part." ; echo ". $HOME_BASHRC_D/init.sh"; } >> "$HOME/$BASHRC";
+  { echo "" ; echo "# Custom part." ; echo ". $HOME_BASHRC_D/init.sh"; } >> "$HOME_BASHRC";
 }
 
 restore_previous_bashrc () {
-  LAST=$(find "$HOME" -maxdepth 1 -name $BASHRC.save* -print0  | xargs -0 ls -1 -t | head -1);
-  if [ -f "$LAST" ]; then
+  LAST=$(find "$HOME" -maxdepth 1 -name ${BASHRC}.save* -print0  | xargs -0 ls -1 -t | head -1);
+  if [[ -f "$LAST" ]]; then
     echo "Most recent save is: $LAST.";
     cp -vf "$LAST" "$HOME_BASHRC";
     echo "Current $HOME_BASHRC replaced by $LAST.";

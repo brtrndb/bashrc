@@ -2,9 +2,9 @@
 # Bertrand B.
 
 BASHRC=".bashrc";
-BASHRC_D=".bashrc.d";
+BASHRC_D="bashrc.d";
 HOME_BASHRC="$HOME/$BASHRC";
-HOME_BASHRC_D="$HOME/$BASHRC_D";
+HOME_BASHRC_D="$HOME/.$BASHRC_D";
 
 usage () {
   echo "Usage: $(basename "$0") [OPTIONS]";

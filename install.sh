@@ -9,10 +9,16 @@ HOME_BASHRC_D="$HOME/.$BASHRC_D";
 usage () {
   echo "Usage: $(basename "$0") [OPTIONS]";
   echo "Options:";
-  echo "  -n, --new:    New install.";
-  echo "  -c, --clean:  Rollback to previous install.";
-  echo "  -u, --update: Update files in $HOME_BASHRC_D.";
-  echo "  -h, --help:   Display usage."
+  echo "  -s, --symlink: Install as symbolic link.";
+  echo "  -c, --copy:    Install as copy.";
+  echo "  -u, --update:  Update files in $HOME_BASHRC_D.";
+  echo "  -r, --restore: Rollback to previous $BASHRC.";
+  echo "  -h, --help:    Display usage."
+}
+
+symlink_files () {
+  echo "Create symbolic links of $BASHRC_D into $HOME_BASHRC_D.";
+  ln -s "$BASHRC_D" "$HOME_BASHRC_D";
 }
 
 copy_files () {
@@ -27,7 +33,7 @@ delete_files (){
   fi
 }
 
-save_current_bashrc () {
+backup_current_bashrc () {
   if [[ -f "$HOME_BASHRC" ]]; then
     echo "Saving previous $BASHRC.";
     cp -v "$HOME_BASHRC" "$HOME_BASHRC.save_$(date +"%Y%m%d%H%M%S")";
@@ -59,19 +65,26 @@ finalize () {
 
 run () {
   case "$1" in
-    -n | --new)
-      copy_files;
-      save_current_bachrc;
+    -s | --symbolic-link)
+      backup_current_bashrc;
+      symlink_files;
       update_current_bashrc;
       finalize;
       ;;
-    -c | --clean)
-      delete_files;
-      restore_previous_bashrc;
+    -c | --copy)
+      backup_current_bashrc;
+      copy_files;
+      update_current_bashrc;
       finalize;
       ;;
     -u | --update)
+      delete_files;
       copy_files;
+      finalize;
+      ;;
+    -r | --restore)
+      delete_files;
+      restore_previous_bashrc;
       finalize;
       ;;
     -h | --help)

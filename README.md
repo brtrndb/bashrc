@@ -4,10 +4,10 @@ My `.bashrc` files. Simple & elegant.
 
 ## Installation
 
-First, clone the repository with its submodules.
+First, clone the repository.
 
 ```sh
-$ git clone --recurse-submodules https://github.com/brtrndb/bashrc.git
+$ git clone https://github.com/brtrndb/bashrc.git
 ```
 
 ## Usage
@@ -15,13 +15,15 @@ $ git clone --recurse-submodules https://github.com/brtrndb/bashrc.git
 ```sh
 $ ./install.sh -h
 Usage: ./install.sh  { -n | -c | -u | -h }
--n, --new:    New install.
--c, --clean:  Rollback to previous install.
--u, --update: Update files in /home/$USER/.bashrc.d.
--h, --help:   Display usage.
+  -s, --symlink: Install as symbolic link.
+  -c, --copy:    Install as copy.
+  -u, --update:  Update files in /home/$USER/.bashrc.d.
+  -r, --restore: Rollback to previous .bashrc.
+  -h, --help:    Display usage.
 ```
 
-A new fresh install will copy `.bashrc.d/` into your home folder and append the line `. $HOME/.bashrc.d/init.sh` at the end of your current `.bashrc`. It will also create a backup just in case.
+A new fresh install will create a symlink or a copy of `.bashrc.d/` into your home folder and append the
+line `. $HOME/.bashrc.d/init.sh` at the end of your current `.bashrc`. It will also create a backup just in case.
 
 ## Description
 
@@ -33,13 +35,13 @@ A new fresh install will copy `.bashrc.d/` into your home folder and append the 
 
 ### Prompt
 
-- Display classical informations like time, user and host.
+- Display classical information like time, user and host.
 - Display the current directory shortened if it is too long in the terminal.
 - Display the current git branch, changes, commits unpushed, and remote commits.
 
 ### Scripts
 
-The `scripts/` folder constains some useful (or not) scripts. They are accessible from the `PATH` env variable.
+The `scripts/` folder contains some useful (or not) scripts. They are accessible from the `PATH` env variable.
 
 - `coffee.sh`: Because you need coffee.
 - `extract.sh`: Extract archived file with correct command depending on file extension.
@@ -50,10 +52,6 @@ The `scripts/` folder constains some useful (or not) scripts. They are accessibl
 
 - Set `PAGER` and `VISUAL`.
 - Set up how commands history is managed (ignored commands, size, format).
-
-### Autocomplete
-
-- `yarn`: https://github.com/dsifford/yarn-completion.
 
 ## Notes
 

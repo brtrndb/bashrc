@@ -1,13 +1,6 @@
 # Prompt.
 
-function get_current_git_folder() {
-  local GIT_ROOT=$(git rev-parse --show-toplevel 2> /dev/null);
-  local DIR_PATH=${PWD/${GIT_ROOT}/$(basename ${GIT_ROOT})};
-
-  echo ${DIR_PATH};
-}
-
-function get_git_infos() {
+function get_git_status() {
   local NB_FILES=$(git status --porcelain 2> /dev/null);
   local NB_FILES_UNTRACKED=$(echo "${NB_FILES}" | grep -cE '^\?\?');
   local NB_FILES_MODIFIED=$(echo "${NB_FILES}" | grep -cE '^(\ |A)M');
@@ -58,43 +51,70 @@ function get_git_infos() {
     GIT_STATUS+="${YELLOW}${ICON_REMOTE}${NB_COMMIT_REMOTE}${RESET}";
   fi
 
-  local GIT_INFOS="${MAGENTA}[${RESET}${BRANCH_NAME}${MAGENTA}|${GIT_STATUS}${MAGENTA}]${RESET}";
+  local GIT_STATUS_COLORED="${MAGENTA}[${RESET}${BRANCH_NAME}${MAGENTA}|${GIT_STATUS}${MAGENTA}]${RESET}";
 
-  echo ${GIT_INFOS};
-}
-
-function get_current_dir() {
-  local DIR_PATH=${PWD/$HOME/\~};
-  echo ${DIR_PATH};
+  echo "${GIT_STATUS_COLORED}";
 }
 
 function my_prompt() {
+  # Terminal title.
+  local PS_TITLE="\\033]0;${PWD/$HOME/\~}\\007";
+
+  # Chroot.
+  local PS_CHROOT="${debian_chroot:+($debian_chroot)|}";
+
+  # Date & time.
+  local PS_TIME="\\A${MAGENTA}|${RESET}";
+
+  # Current user.
   local LAST_CMD_EXIT_CODE="$?";
-  local USER_COLOR=$([[ ${LAST_CMD_EXIT_CODE} = 0 ]] && echo ${CYAN} || echo ${RED});
+  local USER_COLOR=$([[ ${LAST_CMD_EXIT_CODE} = 0 ]] && echo "${CYAN}" || echo "${RED}");
+  local PS_USER="${USER_COLOR}\\u${MAGENTA}@${USER_COLOR}\\H${MAGENTA}:${RESET}";
 
-  local IS_GIT_REPO=$(git rev-parse --is-inside-work-tree &>/dev/null && echo 0 || echo 1);
-  local IS_GIT_SUBMODULE=$(git rev-parse --show-superproject-working-tree &> /dev/null && echo 0 || echo 1);
-
+  # Current directory & Git information.
   local CURRENT_DIR;
-  local GIT_INFOS;
-
+  local PS_CURRENT_LOCATION;
+  local IS_GIT_REPO=$(git rev-parse --is-inside-work-tree &>/dev/null && echo 0 || echo 1);
   if [[ ${IS_GIT_REPO} = 0 ]]; then
-    CURRENT_DIR=$(get_current_git_folder)
-    GIT_INFOS=$(get_git_infos);
+    local GIT_REPO_NAME;
+    local GIT_SUPER_PATH=$(git rev-parse --show-superproject-working-tree 2> /dev/null);
+    local IS_GIT_SUBMODULE=$([[ "${GIT_SUPER_PATH}" = "" ]] && echo "0" || echo "1");
+    if [[ "${IS_GIT_SUBMODULE}" = "0" ]]; then
+      local GIT_ROOT_PATH=$(git rev-parse --show-toplevel 2> /dev/null);
+      local GIT_ROOT_NAME=$(basename "${GIT_ROOT_PATH}");
+
+      CURRENT_DIR=${PWD/${GIT_ROOT_PATH}/};
+
+      GIT_REPO_NAME="${GIT_ROOT_NAME}"
+    else
+      local GIT_SUPER_NAME=$(basename "${GIT_SUPER_PATH}");
+
+      local GIT_SUBMODULE_PATH=$(git rev-parse --show-toplevel 2> /dev/null);
+      local GIT_SUBMODULE_NAME=$(basename "${GIT_SUBMODULE_PATH}");
+
+      CURRENT_DIR=${PWD/${GIT_SUBMODULE_PATH}/};
+
+      GIT_REPO_NAME="${GIT_SUPER_NAME}/${GIT_SUBMODULE_NAME}"
+    fi;
+
+    CURRENT_DIR=$([[ "${CURRENT_DIR}" = "" ]] && echo "/" || echo "${CURRENT_DIR}");
+
+    local GIT_STATUS=$(get_git_status);
+
+    PS_TITLE="\\033]0;${GIT_REPO_NAME}${CURRENT_DIR}\\007";
+    PS_CURRENT_LOCATION="${BLUE}${GIT_REPO_NAME}${MAGENTA}:${YELLOW}${CURRENT_DIR}${RESET} ${GIT_STATUS}${RESET}";
   else
-    CURRENT_DIR=$(get_current_dir);
+    local CURRENT_DIR=${PWD/$HOME/\~};
+
+    PS_TITLE="\\033]0;${CURRENT_DIR}\\007";
+    PS_CURRENT_LOCATION="${YELLOW}${CURRENT_DIR}${RESET}";
   fi
 
-  local PS_TITLE="\\033]0;${CURRENT_DIR}\\007";
-  local PS_CHROOT="${debian_chroot:+($debian_chroot)|}";
-  local PS_TIME="\\A${MAGENTA}|${RESET}";
-  local PS_USER="${USER_COLOR}\\u${MAGENTA}@${USER_COLOR}\\H${MAGENTA}:${RESET}";
-  local PS_GIT=$([[ ${IS_GIT_REPO} = 0 ]] && echo "${BLUE}$([[ ${IS_GIT_SUBMODULE} = 1 ]] && echo "sub")git${MAGENTA}:${RESET}");
-  local PS_CURRENT_DIR="${YELLOW}${CURRENT_DIR}${RESET}";
-  local PS_GIT_BRANCH=$([[ ${IS_GIT_REPO} = 0 ]] && echo " ${GIT_INFOS}");
+  # Current privileges.
   local PS_SU="\$ > ";
 
-  PS1="${PS_TITLE}${PS_CHROOT}${PS_TIME}${PS_USER}${PS_GIT}${PS_CURRENT_DIR}${PS_GIT_BRANCH}${PS_SU}";
+  # Prompt.
+  PS1="${PS_TITLE}${PS_CHROOT}${PS_TIME}${PS_USER}${PS_CURRENT_LOCATION}${PS_SU}";
 }
 
 # Export prompt.

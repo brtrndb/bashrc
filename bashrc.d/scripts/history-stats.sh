@@ -2,10 +2,10 @@
 # Bertrand B.
 
 HISTORY_FILE="$HOME/.bash_history";
-HISTORY_NB_STATS=30;
+DEFAULT_TOP_HISTORY_SIZE=30;
 
 usage() {
-  echo "Show you most used command from .bash_history.";
+  echo "Display your most used commands.";
   echo "";
   echo "Usage: $(basename "$0") [OPTIONS]";
   echo "  -h, --help: Display usage.";
@@ -13,19 +13,38 @@ usage() {
 
 history_stats() {
   if [ -f "$HISTORY_FILE" ]; then
-    cut -f1 -d" " "$HISTORY_FILE" | sort | uniq -c | sort -nr | head -n $HISTORY_NB_STATS;
+    cut -f1 -d" " "$HISTORY_FILE" \
+    | sort \
+    | uniq -c \
+    | sort -nr \
+    | head -n $1;
   else
-    history | sed -e "s/^[[:space:]]*[0-9]*[[:space:]]*//" | cut -f1 -d" " | sort | uniq -c | sort -nr | head -n $HISTORY_NB_STATS;
+    history \
+    | sed -e "s/^[[:space:]]*[0-9]*[[:space:]]*//" \
+    | cut -f1 -d" " \
+    | sort \
+    | uniq -c \
+    | sort -nr \
+    | head -n $1;
   fi
 }
 
 run() {
-  if [ $# -ge 1 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+  if [ $# -ge 2 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     usage;
     return;
   fi
 
-  history_stats;
+  if [ $# -eq 1 ]; then
+    if [ "$1" -eq "$1" ] 2>/dev/null; then
+      history_stats "$1";
+    else
+      echo "Parameter must be a valid positive integer.";
+    fi
+    return;
+  fi
+
+  history_stats $DEFAULT_TOP_HISTORY_SIZE;
 }
 
-run "$*";
+run $*;
